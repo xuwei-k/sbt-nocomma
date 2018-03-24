@@ -17,7 +17,7 @@ addSbtPlugin("com.eed3si9n" % "sbt-nocomma" % "0.1.0")
 usage
 -----
 
-This introduces `nocomma { ... }` macro that returns `Vector[Setting[_]]`.
+This introduces `nocomma { ... }` macro that returns `Vector[SettingsDefinition]`.
 
 
 ```scala

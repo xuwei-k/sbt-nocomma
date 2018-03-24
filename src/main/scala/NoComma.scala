@@ -5,16 +5,17 @@ import scala.language.experimental.macros
 import scala.reflect.macros.blackbox.Context
 
 object NoComma {
-  def nocomma(a: Setting[_]): Vector[Setting[_]] = macro nocommaImpl
+  def nocomma(a: SettingsDefinition): Vector[SettingsDefinition] =
+    macro nocommaImpl
 
   def nocommaImpl(c: Context)(
-      a: c.Expr[Setting[_]]): c.Expr[Vector[Setting[_]]] = {
+      a: c.Expr[SettingsDefinition]): c.Expr[Vector[SettingsDefinition]] = {
     import c.universe._
     val items: List[Tree] = a.tree match {
       case Block(stats, x) => stats ::: List(x)
       case x               => List(x)
     }
-    c.Expr[Vector[Setting[_]]](
+    c.Expr[Vector[SettingsDefinition]](
       Apply(Select(reify(Vector).tree, TermName("apply")), items))
   }
 
